@@ -112,7 +112,7 @@ a{ color:inherit; }
   border-bottom:1px solid transparent;
 }
 .filters a[data-active="true"]{ color:var(--ink); border-bottom-color:var(--ink); }
-.filters .dot{ display:inline-block; width:6px; height:6px; border-radius:1px; margin-right:.35rem; vertical-align:middle; }
+.filters .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:.35rem; vertical-align:middle; }
 .rubric-count{ margin-left:auto; font-family:'IBM Plex Mono'; font-size:.68rem; color:var(--ink-faint); }
 .theme-toggle{
   font-family:'IBM Plex Mono'; font-size:.68rem; background:none; border:1px solid var(--line);
@@ -523,11 +523,13 @@ const REGION_LABEL = { mx:"méxico", otras:"otras regiones" };
 const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 
 function glyph(ev, color){
+  // Marcadores como fases del eclipse (solo círculos), iguales a los de /linea/ de Umbrhalia:
+  // anillo = mención, disco = registro, creciente = obra de arte, disco con corona = hito.
   switch(ev){
-    case "mencion": return `<svg viewBox="0 0 16 16" width="13" height="13"><circle cx="8" cy="8" r="5.5" fill="none" stroke="${color}" stroke-width="1.6"/></svg>`;
-    case "registro": return `<svg viewBox="0 0 16 16" width="13" height="13"><rect x="3" y="3" width="10" height="10" fill="${color}"/></svg>`;
-    case "pintura": return `<svg viewBox="0 0 16 16" width="13" height="13"><polygon points="8,2.5 14,13 2,13" fill="none" stroke="${color}" stroke-width="1.6"/></svg>`;
-    case "hito": return `<svg viewBox="0 0 16 16" width="15" height="15"><path d="M8 1.2l1.85 4.53 4.9.4-3.73 3.2 1.13 4.77L8 11.6l-4.15 2.5 1.13-4.77-3.73-3.2 4.9-.4z" fill="${color}"/></svg>`;
+    case "mencion": return `<svg viewBox="0 0 14 14" width="13" height="13"><circle cx="7" cy="7" r="5.5" fill="none" stroke="${color}" stroke-width="1.5"/></svg>`;
+    case "registro": return `<svg viewBox="0 0 14 14" width="13" height="13"><circle cx="7" cy="7" r="5.5" fill="${color}"/></svg>`;
+    case "pintura": return `<svg viewBox="0 0 14 14" width="13" height="13"><circle cx="7" cy="7" r="5.5" fill="${color}"/><circle cx="10.5" cy="7" r="5" style="fill:var(--paper)"/></svg>`;
+    case "hito": return `<svg viewBox="0 0 14 14" width="15" height="15"><circle cx="7" cy="7" r="3.5" fill="${color}"/><circle cx="7" cy="7" r="6" fill="none" stroke="${color}" stroke-width="1.2"/></svg>`;
   }
 }
 
