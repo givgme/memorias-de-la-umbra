@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="robots" content="noindex">
+<title>Siete estaciones · Memorias de la Umbra</title>
+<style>
+/* Retícula de 12 columnas; cada sección se ancla a una figura: el Sol (círculo claro), la masa (cuadrado rojo) o la Luna (creciente). */
+:root{
+  --negro:#111111; --panel:#1A1A1A; --papel:#F4F4F4; --tinta:#1C1C1C;
+  --texto:#F4F4F4; --tenue:#A6A6A6; --regla:#F4F4F4; --suave:#343434;
+  --rojo:#CD032E; --gris:#646464;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:Menlo,"IBM Plex Mono",ui-monospace,monospace;
+  --gut:clamp(16px,4vw,48px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--negro);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6}
+a{color:inherit;text-decoration-thickness:2px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--rojo);outline-offset:3px}
+p{margin:0;max-width:64ch}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:500;text-transform:uppercase;letter-spacing:.05em;line-height:1.05}
+
+.aviso{background:var(--rojo);color:#fff;text-align:center;padding:4px 16px;margin:0}
+
+/* Cabecera */
+header.top{border-bottom:3px solid var(--regla)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px;flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.86rem}
+.marca svg{width:46px;height:14px;flex:none}
+.fase-top{display:flex;align-items:center;gap:10px;color:var(--tenue)}
+.fase-top svg{width:22px;height:22px}
+
+/* Portada de sala */
+.hero{background:var(--negro)}
+.hero.claro{background:var(--papel);color:var(--tinta);--tenue:#646464;--regla:#1C1C1C}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(36px,7vw,88px)}
+.hero .ceja{color:var(--tenue);margin-bottom:18px}
+.hero h1{font-size:clamp(2.1rem,6vw,4.4rem);line-height:1.02}
+.placa{display:inline-flex;flex-direction:column;justify-content:space-between;width:84px;height:84px;background:var(--rojo);color:#fff;padding:9px 10px;margin-bottom:22px}
+.placa b{font-size:2.1rem;line-height:1;font-weight:500}
+.recorrido{border-bottom:3px solid var(--regla);overflow-x:auto}
+.recorrido ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(10,minmax(44px,1fr))}
+.recorrido li{border-left:1px solid var(--suave)}.recorrido li:first-child{border-left:0}
+.recorrido a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px 10px;text-decoration:none;color:var(--tenue);border-bottom:5px solid transparent}
+.recorrido svg{width:26px;height:26px}
+.recorrido li.aqui a{color:var(--texto);border-bottom-color:var(--rojo)}
+.recorrido a:hover{color:var(--texto)}
+.hero .origen{margin-top:20px;color:var(--tenue);font-size:1.05rem}
+.comp{width:100%;max-width:500px;justify-self:end;aspect-ratio:6/5}
+.comp svg{width:100%;height:100%;display:block}
+.comp.parcial .luna{animation:entra 2.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes entra{from{transform:translateX(-70px)}to{transform:none}}
+.flota{animation:flota 10s ease-in-out infinite alternate}
+@keyframes flota{from{transform:translateY(-6px)}to{transform:translateY(6px)}}
+
+/* Barra de datos de la sala */
+.bar{border-block:3px solid var(--regla)}
+.bar .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.dato{padding:20px 16px;border-left:3px solid var(--regla);display:flex;flex-direction:column;gap:6px;min-width:0}
+.dato:first-child{border-left:0;padding-left:0}
+.dato b{font-size:clamp(1.9rem,4vw,3rem);line-height:1;font-weight:500;font-variant-numeric:tabular-nums}
+.dato b.txt{font-size:clamp(1.05rem,1.8vw,1.3rem);font-weight:500;line-height:1.25;text-transform:uppercase;letter-spacing:.04em}
+.dato:nth-child(1) b{color:var(--rojo)}
+.dato span{color:var(--tenue)}
+
+/* Secciones */
+section.block{padding-block:clamp(48px,7vw,96px)}
+.head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 18px;align-items:baseline;border-top:3px solid var(--regla);padding-top:14px;margin-bottom:clamp(26px,4vw,44px)}
+.head .idx{font-family:var(--mono);font-size:.8rem;color:var(--rojo);letter-spacing:.1em}
+.head .sub{color:var(--tenue);justify-self:end;text-align:right}
+.shape{width:52px;height:52px}
+.shape.sol{background:var(--papel);border-radius:50%}
+.shape.masa{background:var(--rojo)}
+.shape.luna{border-radius:50%;background:radial-gradient(circle at 70% 50%,var(--negro) 0 49%,transparent 50%),var(--papel)}
+.head h2{font-size:clamp(1.5rem,3.4vw,2.4rem)}
+
+.sala{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.sala .texto{display:grid;gap:16px;font-size:1.08rem}
+.ficha{border:3px solid var(--regla);padding:26px;background:var(--panel);align-self:start;position:relative}
+.ficha::before{content:"";position:absolute;top:-18px;left:-18px;width:36px;height:36px;border-radius:50%;background:var(--rojo)}
+.ficha blockquote{margin:0}
+.ficha blockquote p{font-size:1.3rem;line-height:1.35;font-weight:500}
+.ficha cite{display:block;margin-top:14px;font-style:normal;color:var(--tenue)}
+.ficha dl{margin:0;display:grid;gap:14px}
+.ficha dt{color:var(--tenue)}
+.ficha dd{margin:2px 0 0;font-size:1.05rem}
+
+/* Celdas: piezas, núcleos, estaciones */
+.celdas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;background:var(--regla);border:3px solid var(--regla)}
+.celda{background:var(--negro);padding:24px 22px;display:flex;flex-direction:column;gap:10px;min-width:0;text-decoration:none}
+.celda.ancha{grid-column:span 2}
+.celda.roja{background:var(--rojo);color:#fff}
+.celda.roja .mono,.celda.roja .der{color:#fff;opacity:.9;border-color:#fff}
+.celda .mono{color:var(--tenue)}
+.celda h3{font-size:1.12rem;line-height:1.3;letter-spacing:0;text-transform:none}
+.celda.ancha h3{font-size:clamp(1.3rem,2.4vw,1.75rem)}
+.celda p{color:var(--tenue);font-size:.98rem}
+.celda.roja p{color:#fff}
+.der{align-self:start;margin-top:auto;border:2px solid var(--suave);padding:2px 8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--tenue)}
+a.celda:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.celda .num{font-size:clamp(2rem,4vw,3rem);font-weight:500;line-height:1;color:var(--rojo)}
+.celda.roja .num{color:#fff}
+
+.cadena{display:flex;align-items:center;margin:0 0 28px;padding:0;list-style:none;position:relative}
+.cadena::before{content:"";position:absolute;left:12px;right:12px;top:50%;height:3px;background:var(--regla);transform:translateY(-50%)}
+.cadena li{flex:1;display:flex;justify-content:center;position:relative}
+.cadena li:first-child{justify-content:flex-start}.cadena li:last-child{justify-content:flex-end}
+.cadena span{width:24px;height:24px;border-radius:50%;background:var(--rojo);display:block}
+
+/* Banda de interacción */
+.banda{background:var(--rojo);color:#fff;overflow:hidden}
+.banda .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;padding-block:clamp(40px,6vw,72px)}
+.banda h2{font-size:clamp(1.6rem,4vw,2.8rem);margin-top:10px}
+.banda .mono{opacity:.9}
+.banda .bloque{width:clamp(70px,12vw,140px);aspect-ratio:1;background:var(--negro)}
+
+/* Respuesta (sala 9): sola, grande, sobre blanco */
+.blanca{background:var(--papel);color:var(--tinta)}
+.blanca .wrap{padding-block:clamp(56px,9vw,120px)}
+.blanca p{font-size:clamp(1.7rem,4.4vw,3rem);line-height:1.15;font-weight:500;max-width:28ch}
+
+/* Índice del recorrido */
+.indice{list-style:none;margin:0;padding:0;border-top:3px solid var(--regla)}
+.indice a{display:grid;grid-template-columns:28px 3.2rem minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--suave);text-decoration:none}
+.indice svg{width:28px;height:28px}
+.indice .n{font-family:var(--mono);color:var(--tenue)}
+.indice small{color:var(--tenue)}
+.indice a:hover .t{text-decoration:underline}
+
+/* Cosecha y siembra */
+.palabra{border:3px solid var(--regla);padding:28px;display:inline-block;min-width:min(100%,320px)}
+.palabra b{display:block;font-size:clamp(2.2rem,8vw,4.5rem);font-weight:500;color:var(--rojo);line-height:1}
+.siembra label{display:block;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:500;text-transform:uppercase;letter-spacing:.04em;line-height:1.2;margin-bottom:16px}
+.siembra input{width:100%;font:inherit;font-size:clamp(1.6rem,5vw,2.4rem);padding:10px 0;background:transparent;border:0;border-bottom:3px solid var(--rojo);color:var(--texto);border-radius:0}
+.siembra .nota{margin-top:10px;color:var(--tenue)}
+
+/* Umbral */
+.umbral{background:var(--panel);border-top:3px solid var(--regla)}
+.umbral .wrap{padding-block:clamp(48px,7vw,88px);display:grid;gap:26px}
+.umbral .frase{font-size:clamp(1.35rem,3.2vw,2rem);line-height:1.3;font-style:italic;max-width:36ch}
+.umbral blockquote{margin:0;border-left:6px solid var(--rojo);padding-left:18px}
+.umbral blockquote p{font-size:1.15rem}
+.umbral cite{display:block;margin-top:8px;font-style:normal;color:var(--tenue)}
+.boton{display:inline-flex;align-items:center;gap:14px;justify-self:start;border:3px solid var(--regla);padding:14px 20px;text-decoration:none;font-weight:500;text-transform:uppercase;letter-spacing:.05em;font-size:.95rem}
+.boton:hover{background:var(--texto);color:var(--negro)}
+.boton.lleno{background:var(--rojo);border-color:var(--rojo);color:#fff}
+
+/* Pie y trenza */
+footer{border-top:3px solid var(--regla);color:var(--tenue);font-size:.9rem}
+footer .wrap{padding-block:28px 110px;display:grid;gap:6px}
+.trenza{position:fixed;left:0;right:0;bottom:0;margin:0;list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  background:var(--negro);border-top:3px solid var(--regla);padding:0 max(0px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(0px,env(safe-area-inset-left,0px));z-index:5}
+.trenza li{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 4px;border-left:1px solid var(--suave);font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:#6E6E6E;min-width:0}
+.trenza li:first-child{border-left:0}
+.trenza i{width:10px;height:10px;border-radius:50%;background:var(--suave);flex:none}
+.trenza li.on{color:var(--texto)}.trenza li.on i{background:var(--rojo)}
+
+@media (max-width:820px){
+  .hero .wrap,.sala{grid-template-columns:minmax(0,1fr)}
+  .comp{justify-self:center;max-width:380px}
+  .celdas{grid-template-columns:minmax(0,1fr)}
+  .celda.ancha{grid-column:auto}
+  .bar .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dato:nth-child(3){border-left:0;padding-left:0}
+  .dato:nth-child(n+3){border-top:3px solid var(--regla)}
+  .banda .bloque{display:none}
+  .trenza li{flex-direction:column;gap:4px;font-size:.56rem}
+}
+@media (prefers-reduced-motion:reduce){.luna,.flota{animation:none}}
+</style>
+</head>
+<body>
+<p class="aviso mono">Borrador del museo · no publicado</p>
+<header class="top"><div class="wrap">
+  <a class="marca" href="../"><svg viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#CD032E"/><circle cx="23" cy="7" r="6" fill="#F4F4F4"/><circle cx="20.5" cy="7" r="6" fill="#111111"/><circle cx="39" cy="7" r="6" fill="#F4F4F4"/><circle cx="39" cy="7" r="4.6" fill="#111111"/></svg>Memorias de la Umbra</a>
+  <span class="fase-top mono"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-14.2" r="12.4" fill="#111111"/></svg>Parcialidad de salida</span>
+</div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div><div class="placa" aria-hidden="true"><span class="mono">Sala</span><b>07</b></div><p class="ceja mono">Un proceso cultural</p>
+  <h1>Siete estaciones</h1>
+  <p class="origen">cap. «Comunicación de la Ciencia como Proceso Cultural».</p></div>
+  <div class="comp parcial"><svg viewBox="0 0 600 500" role="img" aria-label="La fase del eclipse en esta sala"><circle cx="70" cy="60" r="4.5" fill="#F4F4F4"/><circle cx="140" cy="110" r="3" fill="#F4F4F4"/><circle cx="520" cy="70" r="3" fill="#F4F4F4"/><circle cx="560" cy="180" r="4.5" fill="#F4F4F4"/><rect class="flota" x="121" y="389" width="104" height="104" fill="#CD032E"/><circle cx="340" cy="240" r="118" fill="#F4F4F4"/><g class="luna"><circle cx="206.2" cy="240" r="120" fill="#111111"/></g><line x1="20" y1="470" x2="590" y2="40" stroke="#F4F4F4" stroke-width="3"/></svg></div>
+</div></section>
+<section class="bar"><div class="wrap">
+  <div class="dato"><b>60 %</b><span class="mono">Luz · Parcialidad de salida</span></div>
+  <div class="dato"><b>5/5</b><span class="mono">Hilos</span></div>
+  <div class="dato"><b>7</b><span class="mono">Estaciones</span></div>
+  <div class="dato"><b class="txt">la teoría.</b><span class="mono">Registro</span></div>
+</div></section>
+<nav class="recorrido" aria-label="El recorrido"><div class="wrap"><ol><li><a href="../" aria-label="Sala 0: Una pregunta al cielo"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-23.1" r="12.4" fill="#111111"/></svg><span class="mono">0</span></a></li><li><a href="../cosmos/" aria-label="Sala 1: Brújula, calendario, espejo"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-14.2" r="12.4" fill="#111111"/></svg><span class="mono">1</span></a></li><li><a href="../sombra/" aria-label="Sala 2: Cuatrocientas veces"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="#F4F4F4"/><circle r="12.5" fill="#111111"/></svg><span class="mono">2</span></a></li><li><a href="../cosmologias/" aria-label="Sala 3: El Sol que es comido"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="#F4F4F4"/><circle r="12.5" fill="#111111"/></svg><span class="mono">3</span></a></li><li><a href="../arte/" aria-label="Sala 4: El disco oscurecido"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="#F4F4F4"/><circle r="12.5" fill="#111111"/></svg><span class="mono">4</span></a></li><li><a href="../atlas/" aria-label="Sala 5: Donde la sombra toca tierra"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="#F4F4F4"/><circle r="12.5" fill="#111111"/></svg><span class="mono">5</span></a></li><li><a href="../divulgacion/" aria-label="Sala 6: Contar el cielo de vuelta"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-8.2" r="12.4" fill="#111111"/></svg><span class="mono">6</span></a></li><li class="aqui"><a href="../proceso/" aria-label="Sala 7: Siete estaciones"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-14.2" r="12.4" fill="#111111"/></svg><span class="mono">7</span></a></li><li><a href="../lfae/" aria-label="Sala 8: Trescientas diecisiete palabras para la sombra"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-20.2" r="12.4" fill="#111111"/></svg><span class="mono">8</span></a></li><li><a href="../conclusiones/" aria-label="Sala 9: El regreso de la luz"><svg viewBox="-20 -20 40 40" aria-hidden="true"><circle r="12" fill="#F4F4F4"/><circle cx="-25" r="12.4" fill="#111111"/></svg><span class="mono">9</span></a></li></ol></div></nav>
+<section class="block"><div class="wrap">
+  <div class="head"><span class="idx">01</span><h2>La sala</h2><p class="mono sub">Parcialidad de salida</p></div>
+  <div class="sala"><div class="texto"><p>Si la ciencia puede analizarse como una cultura, comunicarla es un proceso cultural completo, no un traslado de información. Esta tesis lo describe en siete etapas: formación, creación, producción, distribución, consumo, apropiación y conservación. En cada una se decide algo: quién puede divulgar, con qué recursos, por qué canales, para qué públicos, cómo se vuelve propio un saber y cómo se resguarda para quienes vendrán.</p><p>La apuesta es dialógica. El público es un interlocutor con saberes propios, no un recipiente vacío.</p><p>Esta sala mira hacia atrás: cada estación se ilustra con algo que ya viste.</p></div>
+  <aside class="ficha"><dl><div><dt class="mono">En la tesis</dt><dd>cap. «Comunicación de la Ciencia como Proceso Cultural».</dd></div><div><dt class="mono">Fase del recorrido</dt><dd>Parcialidad de salida</dd></div><div><dt class="mono">Registro</dt><dd>la teoría.</dd></div></dl></aside></div>
+</div></section>
+<section class="block"><div class="wrap"><div class="head"><span class="idx">02</span><h2>Siete estaciones</h2><p class="mono sub">El proceso cultural</p></div><ol class="cadena" aria-hidden="true"><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li></ol><div class="celdas"><div class="celda"><span class="mono">01 · Estación</span><h3>Formación</h3><p>Divulgar no es exclusivo de quien se formó en ciencia, «desde Galileo hasta Sagan»</p><span class="der">Ya la viste: Galileo (sala 6) y <em>Pale Blue Dot</em> (sala 1)</span></div><div class="celda"><span class="mono">02 · Estación</span><h3>Creación</h3><p>La creación cambia con la reproducción técnica</p><span class="der">Ya la viste: La fotografía libera al arte del registro (4.4)</span></div><div class="celda"><span class="mono">03 · Estación</span><h3>Producción</h3><p>«¿Cómo y con qué recursos?»</p><span class="der">Ya la viste: El 10 % profesional (sala 6)</span></div><div class="celda"><span class="mono">04 · Estación</span><h3>Distribución</h3><p>Cómo se difunde el conocimiento</p><span class="der">Ya la viste: La imprenta de 1539 (sala 6)</span></div><div class="celda"><span class="mono">05 · Estación</span><h3>Consumo</h3><p>«¿Cómo se percibe y cómo se consume?»</p><span class="der">Ya la viste: Halley invita al público a observar (4.1)</span></div><div class="celda"><span class="mono">06 · Estación</span><h3>Apropiación</h3><p>Adoptar o rechazar, de manera informada, según la propia cultura</p><span class="der">Ya la viste: El muro de palabras (sala 8)</span></div><div class="celda"><span class="mono">07 · Estación</span><h3>Conservación</h3><p>Patrimonio material e inmaterial: pinturas, sitios arqueológicos, rituales</p><span class="der">Ya la viste: El friso de Xochicalco y los códices (salas 3 y 4)</span></div></div></div></section>
+<section class="banda"><div class="wrap">
+  <div><p class="mono">Interacción · en construcción</p><h2>La cadena que se recorre</h2></div>
+  <div class="bloque" aria-hidden="true"></div>
+</div></section>
+<section class="umbral"><div class="wrap"><p class="mono" style="color:var(--tenue)">Umbral</p><p class="frase">La Luna deja ver casi todo el Sol. Lo que queda de la sombra cabe en una palabra.</p><a class="boton" href="../lfae/">Sala 8 · Trescientas diecisiete palabras para la sombra →</a></div></section>
+</main>
+<footer><div class="wrap">
+  <p>© Gabriela Isabel Vera Garfias. Todos los derechos reservados.</p>
+  <p>Derivado de la tesis «Comunicación del Conocimiento desde la Transdisciplina. Ciencia, cultura y memoria en los eclipses solares en México». Maestría en Procesos Culturales para el Diseño y el Arte, UAM Azcapotzalco.</p>
+</div></footer>
+<ol class="trenza" aria-label="Hilos que entrelaza esta sala"><li class="on"><i></i>astronomía</li><li class="on"><i></i>arqueología</li><li class="on"><i></i>matemáticas</li><li class="on"><i></i>cultura</li><li class="on"><i></i>comunicación</li></ol>
+<script>
+try{var w=localStorage.getItem('umbra.palabra');document.querySelectorAll('[data-palabra]').forEach(function(e){if(w)e.textContent=w;else e.closest('[data-si-palabra]').hidden=true;});}catch(e){document.querySelectorAll('[data-si-palabra]').forEach(function(x){x.hidden=true;});}
+var f=document.getElementById('siembra');if(f){try{f.value=localStorage.getItem('umbra.palabra')||'';}catch(e){}f.addEventListener('input',function(){try{localStorage.setItem('umbra.palabra',f.value.trim().split(/\s+/)[0]||'');}catch(e){}});}
+</script>
+</body>
+</html>
