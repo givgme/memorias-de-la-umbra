@@ -106,6 +106,10 @@ a{ color:inherit; }
 }
 .rubric-extlink:hover{ color:var(--ink); border-bottom-color:var(--line); }
 .rubric-sep{ color:var(--line); font-size:.76rem; }
+@media (max-width:640px){
+  .rubric-tabs{ flex-wrap:wrap; gap:.5rem 1.1rem; }
+  .rubric-sep{ display:none; }
+}
 .filters{ display:flex; gap:1rem; flex-wrap:wrap; font-family:'IBM Plex Mono'; font-size:.72rem; }
 .filters a{
   cursor:pointer; color:var(--ink-faint); text-decoration:none; padding-bottom:1px;
@@ -311,7 +315,6 @@ footer{ text-align:center; padding:2.4rem 1.5rem 4rem; color:var(--ink-faint); f
       <button id="tab-cultural" role="tab" aria-selected="true">Memoria cultural</button>
       <span class="rubric-sep">/</span>
       <button id="tab-rigorous" role="tab" aria-selected="false">Cronología de Eclipses Solares en México</button>
-      <span class="rubric-sep">/</span>
       <span class="rubric-sep">/</span>
       <button id="tab-table" role="tab" aria-selected="false">Efemérides</button>
       <span class="rubric-sep">/</span>
